@@ -97,7 +97,7 @@ public class SetFinaleCommand {
         }
     }
     private static void showActionBar(ServerPlayer player, Vec2 finaleLocation) {
-        Component title = Component.literal(Math.round(finaleLocation.x) + " X " + Math.round(finaleLocation.y) + " Z");
+        Component title = Component.literal(Math.round(player.position().x) + " X " + Math.round(player.position().y) + " Y " + Math.round(player.position().z) + " Z " + Math.round(finaleLocation.x) + " X " + Math.round(finaleLocation.y) + " Z");
 
         player.connection.send(
                 new ClientboundSetActionBarTextPacket(title)

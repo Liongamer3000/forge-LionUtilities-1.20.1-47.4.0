@@ -86,7 +86,7 @@ public class RevealPlayerCommand {
     private static void showRandomPlayer(ServerPlayer player) {
         ServerPlayer targetPlayer = players.get((int) (Math.random()*players.size()));
         if(loopNumber >= 100) {
-                    player.sendSystemMessage(Component.literal("You are the only in survival right now, there must be at least 2 players on the server for this command to work"));
+                    player.sendSystemMessage(Component.literal("You are the only player in survival right now, there must be at least 2 players on the server for this command to work"));
                     return;
         }
         if (targetPlayer == player) {
@@ -94,12 +94,12 @@ public class RevealPlayerCommand {
             showRandomPlayer(player);
         } else {
             loopNumber = 0;
-            player.getPersistentData().putString(LionUtilitiesMod.MOD_ID + "message", new String(Math.round(player.position().x) + " X " + Math.round(player.position().y) + " Y " + Math.round(player.position().z) + " Z"));
+            player.getPersistentData().putString(LionUtilitiesMod.MOD_ID + "message", new String(Math.round(targetPlayer.position().x) + " X " + Math.round(targetPlayer.position().y) + " Y " + Math.round(targetPlayer.position().z) + " Z"));
         }
     }
 
     private static void showMessage(ServerPlayer player) {
-        Component title = Component.literal(player.getPersistentData().getString(LionUtilitiesMod.MOD_ID + "message"));
+        Component title = Component.literal(Math.round(player.position().x) + " X " + Math.round(player.position().y) + " Y " + Math.round(player.position().z) + " Z " + player.getPersistentData().getString(LionUtilitiesMod.MOD_ID + "message"));
 
         player.connection.send(
                 new ClientboundSetActionBarTextPacket(title)
